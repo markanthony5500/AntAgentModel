@@ -1,9 +1,11 @@
+#pragma once
+
 // Defines food source for ants
 struct FoodSource {
     int x, y;
     int amount;
     float toxicity;
-    bool isDepleted(){
+    bool isDepleted() const {
         if(amount <= 0){return true;}
         else{
             return false;
@@ -16,6 +18,7 @@ struct FoodSource {
         }
         else{
             --amount;
+            return true;
         }
     }
 };
