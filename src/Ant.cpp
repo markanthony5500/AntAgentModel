@@ -115,9 +115,11 @@ void Ant::stepSearching(Grid& grid, std::vector<FoodSource>& food, const Nest& n
         // Multiply that 0-1 number by the highest follow chance te get the chance ant moves in that direction
         float chance = cfg.maxFollowChance * (bestStrength / cfg.pheromoneMax);
 
-        // Roll and see if ant moves towards pheremone trail (stronger trail, means more likely)
+        // Already on a trail: keep following it. Off a trail: roll to see if the ant joins it
+        // (stronger trail, means more likely). Rolling every step would make ants fall off after a few cells
         std::uniform_real_distribution<float> roll(0.0f, 1.0f);
-        if (roll(rng) < chance) {
+        bool onTrail = grid.pheromoneAt(posX, posY) >= cfg.followThreshold;
+        if (onTrail || roll(rng) < chance) {
             dir = bestDir;
             moveTo(posX + DX[dir], posY + DY[dir]);
             return;
