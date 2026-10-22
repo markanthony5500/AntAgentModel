@@ -3,12 +3,15 @@
 
 struct Config {
     // World
-    int gridWidth = 150;
-    int gridHeight = 100;
-    int cellSize = 6;                   // pixels per cell
+    // Window is gridWidth * cellSize + panelWidth wide (1880) and gridHeight * cellSize tall (960),
+    // sized to fit a 1920x1080 screen
+    int gridWidth = 195;
+    int gridHeight = 120;
+    int cellSize = 8;                   // pixels per cell
     int panelWidth = 320;               // pixels for the stats panel right of the grid
     int targetFps = 60;
-    int maxTicksPerFrame = 64;          // fastest simulation speed
+    float ticksPerSecond = 15.0f;       // model speed at 1x, separate from the frame rate (tune)
+    int maxSpeed = 64;                  // fastest speed multiplier (64x)
 
     // Simulation
     unsigned int seed = 0;              // 0 = new random seed each run, anything else reproduces a run
